@@ -50,3 +50,17 @@ data "aws_iam_policy_document" "table_policy" {
     resources = ["${aws_s3tables_table.s3tables_table.arn}"]
   }
 }
+
+# Resource Link
+
+resource "aws_glue_catalog_database" "this" {
+  name = "MyCatalogDatabase"
+  catalog_id = "<account-id>"
+  target_database {
+      catalog_id    = ""
+      database_name = ""
+      region        = ""
+    }
+
+}
+
