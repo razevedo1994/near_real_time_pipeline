@@ -54,12 +54,12 @@ data "aws_iam_policy_document" "table_policy" {
 # Resource Link
 
 resource "aws_glue_catalog_database" "this" {
-  name = "MyCatalogDatabase"
-  catalog_id = "<account-id>"
+  name = "s3-table-database"
+  catalog_id = data.aws_caller_identity.current.account_id
   target_database {
-      catalog_id    = ""
-      database_name = ""
-      region        = ""
+      catalog_id    = "${data.aws_caller_identity.current.account_id}:s3tablescatalog/${aws_s3tables_table_bucket.s3tables_bucket.name}"
+      database_name = aws_s3tables_namespace.s3tables_namespace.name
+      region        = var.aws_region
     }
 
 }
